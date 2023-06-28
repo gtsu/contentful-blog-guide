@@ -1,18 +1,10 @@
 import { IBlogEntryFields } from "@/ContentfulGeneratedTypes";
+import BlogEntry, { BlogEntryProps } from "@/components/BlogEntry";
 import { createClient } from "contentful";
 import { GetStaticPaths, GetStaticProps } from "next/types";
 
-type BlogEntryPageProps = {
-  entry: IBlogEntryFields;
-};
-
-const BlogEntryPage = ({ entry }: BlogEntryPageProps) => {
-  return (
-    <div className="flex flex-col gap-3 mt-6">
-      <h1 className="text-4xl border-b-2">{entry.title}</h1>
-      <p className="px-2">{entry.post}</p>
-    </div>
-  );
+const BlogEntryPage = ({ entry }: BlogEntryProps) => {
+  return <BlogEntry entry={entry} />;
 };
 
 export default BlogEntryPage;
@@ -21,7 +13,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   return { paths: [], fallback: "blocking" };
 };
 
-export const getStaticProps: GetStaticProps<BlogEntryPageProps> = async ({
+export const getStaticProps: GetStaticProps<BlogEntryProps> = async ({
   params,
 }) => {
   const contentful = createClient({
